@@ -1,0 +1,494 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>非关系型数据库 Redis的安装使用 | 流光</title><meta name="keywords" content="软件,NoSQL"><meta name="author" content="流光"><meta name="copyright" content="流光"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="NoSql非关系型数据库Not Only Sql  不仅仅是sql 而sql是用来操作关系型数据库的，也就是说我们以后不仅仅要使用关系型数据库还要使用非关系型数据库 为什么要使用非关系型数据库： 我们实际开发的时候为了减轻关系型数据库的压力，可以使用非关系型数据库配合关系型数据库使用，基本都是用来作为关系型数据库的备份 NoSql数据库类型键值型（Key-Value）数据库[Redis&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="非关系型数据库 Redis的安装使用">
+<meta property="og:url" content="http://example.com/post/e4c85558.html">
+<meta property="og:site_name" content="流光">
+<meta property="og:description" content="NoSql非关系型数据库Not Only Sql  不仅仅是sql 而sql是用来操作关系型数据库的，也就是说我们以后不仅仅要使用关系型数据库还要使用非关系型数据库 为什么要使用非关系型数据库： 我们实际开发的时候为了减轻关系型数据库的压力，可以使用非关系型数据库配合关系型数据库使用，基本都是用来作为关系型数据库的备份 NoSql数据库类型键值型（Key-Value）数据库[Redis&#x2F;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://th.wallhaven.cc/lg/y8/y86g17.jpg">
+<meta property="article:published_time" content="2022-06-18T09:24:09.000Z">
+<meta property="article:modified_time" content="2022-06-18T09:25:17.400Z">
+<meta property="article:author" content="流光">
+<meta property="article:tag" content="软件">
+<meta property="article:tag" content="NoSQL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://th.wallhaven.cc/lg/y8/y86g17.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/post/e4c85558"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'mediumZoom',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '非关系型数据库 Redis的安装使用',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-06-18 17:25:17'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/favicon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://th.wallhaven.cc/lg/y8/y86g17.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">流光</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">非关系型数据库 Redis的安装使用</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-06-18T09:24:09.000Z" title="发表于 2022-06-18 17:24:09">2022-06-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-06-18T09:25:17.400Z" title="更新于 2022-06-18 17:25:17">2022-06-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B/">编程</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/post/e4c85558.html#post-comment" itemprop="discussionUrl"><span class="valine-comment-count" data-xid="/post/e4c85558.html" itemprop="commentCount"></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="NoSql非关系型数据库"><a href="#NoSql非关系型数据库" class="headerlink" title="NoSql非关系型数据库"></a>NoSql非关系型数据库</h1><p>Not Only Sql  不仅仅是sql</p>
+<p>而sql是用来操作关系型数据库的，也就是说我们以后不仅仅要使用关系型数据库还要使用非关系型数据库</p>
+<p>为什么要使用非关系型数据库：</p>
+<p>我们实际开发的时候为了减轻关系型数据库的压力，可以使用非关系型数据库配合关系型数据库使用，基本都是用来作为关系型数据库的备份</p>
+<h2 id="NoSql数据库类型"><a href="#NoSql数据库类型" class="headerlink" title="NoSql数据库类型"></a>NoSql数据库类型</h2><h3 id="键值型（Key-Value）数据库-Redis-x2F-Memcached"><a href="#键值型（Key-Value）数据库-Redis-x2F-Memcached" class="headerlink" title="键值型（Key-Value）数据库[Redis&#x2F;Memcached]"></a>键值型（Key-Value）数据库[Redis&#x2F;Memcached]</h3><p>适用场景：</p>
+<p>储存用户信息，比如会话、配置文件、参数、购物车等等。这些信息一般都和ID（键）挂钩，这种情景下键值数据库是个很好的选择。</p>
+<p>不适用场景：</p>
+<p>1.取代通过键查询，而是通过值来查询。Key-Value数据库中根本没有通过值查询的途径</p>
+<p>2.需要储存数据之间的关系。在Key-Value数据库中不能通过两个或以上的键来关联数据。</p>
+<p>3.事务的支持。在Key-Value数据库中故障产生时不可以进行回滚。</p>
+<h3 id="文档型（Document-Oriented）数据库-MongoDB-ES"><a href="#文档型（Document-Oriented）数据库-MongoDB-ES" class="headerlink" title="文档型（Document-Oriented）数据库[MongoDB] ES"></a>文档型（Document-Oriented）数据库[MongoDB] ES</h3><p>数据可以使用XML、<strong>JSON</strong>或者JSONB等多种形式存储。 {“name”:“abc”}</p>
+<p>适用场景：1.日志 2.分析</p>
+<p>不适用场景：不支持事务</p>
+<h3 id="列存储（Wide-Column-Store-x2F-Column-Family）数据库-HBASE"><a href="#列存储（Wide-Column-Store-x2F-Column-Family）数据库-HBASE" class="headerlink" title="列存储（Wide Column Store&#x2F;Column-Family）数据库[HBASE]"></a>列存储（Wide Column Store&#x2F;Column-Family）数据库[HBASE]</h3><p>列存储数据库将数据储存在列族（column family）中，一个列族存储经常被一起查询的相关数据。举个例子，如果我们有一个Person类，我们通常会一起查询他们的姓名和年龄而不是薪资。这种情况下，姓名和年龄就会被放入一个列族中，而薪资则在另一个列族中。</p>
+<p>适用场景：1.日志 2.博客平台,我们储存每个信息到不同的列族中。举个例子，标签可以储存在一个，类别可以在一个，而文章则在另一个。</p>
+<p>不适用场景：1.ACID事务 2.原型设计。在模型设计之初，我们根本不可能去预测它的查询方式，而一旦查询方式改变，我们就必须重新设计列族。</p>
+<h3 id="图（Graph-Oriented）数据库-Neo4J-infoGird"><a href="#图（Graph-Oriented）数据库-Neo4J-infoGird" class="headerlink" title="图（Graph-Oriented）数据库[Neo4J,infoGird]"></a>图（Graph-Oriented）数据库[Neo4J,infoGird]</h3><p>适用范围很小，主要用用网络拓扑分析 如脉脉的人员关系图等</p>
+<h2 id="常见的NoSql数据库"><a href="#常见的NoSql数据库" class="headerlink" title="常见的NoSql数据库"></a>常见的NoSql数据库</h2><p><img src="E:/%E7%AC%94%E8%AE%B0%E6%9C%AC/java/08_redis/assets/clip_image002.png" alt="img">  </p>
+<h2 id="总结NoSql"><a href="#总结NoSql" class="headerlink" title="总结NoSql"></a>总结NoSql</h2><ol>
+<li>NoSql就是为了性能而诞生的</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">指的是NoSql的读写性能非常的高 因为是将数据存放在内存中的</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>NoSql是Sql的阉割版本，是为了解决行业内特定问题</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NoSql基本都是配置关系型数据库使用</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>NoSql没有特定的数据结构定义，使用时不需要表</p>
+</li>
+<li><p>NoSql对事物的支持很差：在Key-Value数据库中故障产生时不可以进行回滚。 </p>
+</li>
+<li><p>只能通过值查询</p>
+<hr>
+</li>
+</ol>
+<h1 id="Redis数据库的介绍"><a href="#Redis数据库的介绍" class="headerlink" title="Redis数据库的介绍"></a>Redis数据库的介绍</h1><p>Remote Dictionary Server 远程字典服务器</p>
+<p>Redis以key-value形式操作数据库，数据存放在内存中</p>
+<p>支持持久化：</p>
+<p>​	1. rdb     周期性的将存放的数据写磁盘文件	</p>
+<p>​	2. aof     将对redis的所有写操作指令记录到磁盘文件	</p>
+<h2 id="Redis的特点"><a href="#Redis的特点" class="headerlink" title="Redis的特点"></a>Redis的特点</h2><p>redis的读取速度：110000次&#x2F;秒   写速度：81000次&#x2F;秒</p>
+<p>为什么快</p>
+<ul>
+<li>单线程不需要线程切换开销，</li>
+<li>没有锁的竞争，</li>
+<li>多路复用</li>
+</ul>
+<h2 id="支持多种数据类型："><a href="#支持多种数据类型：" class="headerlink" title="支持多种数据类型："></a>支持多种数据类型：</h2><ul>
+<li>string </li>
+<li>list </li>
+<li>hash </li>
+<li>set </li>
+<li>zset</li>
+<li>。。。</li>
+</ul>
+<p>支持就持久化   主从复制   集群</p>
+<hr>
+<h2 id="Redis的应用场景"><a href="#Redis的应用场景" class="headerlink" title="Redis的应用场景"></a>Redis的应用场景</h2><h3 id="数据缓存（提高访问性能）"><a href="#数据缓存（提高访问性能）" class="headerlink" title="数据缓存（提高访问性能）"></a>数据缓存（提高访问性能）</h3><p>将一些数据在短时间之内不会发生变化，而且它们还要被频繁访问，为了提高用户的请求速度和降低网站的负载，降低数据库的读写次数，就把这些数据放到缓存中。</p>
+<h3 id="会话缓存（共享session）"><a href="#会话缓存（共享session）" class="headerlink" title="会话缓存（共享session）"></a>会话缓存（共享session）</h3><p>（session cache，保存web会话信息）</p>
+<h3 id="排行榜-x2F-计数器"><a href="#排行榜-x2F-计数器" class="headerlink" title="排行榜&#x2F;计数器"></a>排行榜&#x2F;计数器</h3><p>（NGINX+lua+redis计数器进行IP自动封禁）</p>
+<h3 id="消息队列（ActiveMQ-x2F-RabbitMQ-x2F-Kafka-x2F-RocketMQ）"><a href="#消息队列（ActiveMQ-x2F-RabbitMQ-x2F-Kafka-x2F-RocketMQ）" class="headerlink" title="消息队列（ActiveMQ&#x2F;RabbitMQ&#x2F;Kafka&#x2F;RocketMQ）"></a>消息队列（ActiveMQ&#x2F;RabbitMQ&#x2F;Kafka&#x2F;RocketMQ）</h3><p>（构建实时消息系统，聊天，群聊）</p>
+<p><strong>重点做缓存（数据，用户信息）</strong></p>
+<h1 id="redis的安装与配置"><a href="#redis的安装与配置" class="headerlink" title="redis的安装与配置"></a>redis的安装与配置</h1><ul>
+<li><strong>安装gcc  目地是编译软件</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc-c++ </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>解压安装包</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf redis-5.0.7.tar.gz</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>把解压的文件copy到&#x2F;usr&#x2F;local&#x2F;src里面进行配置</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp -r /root/software/redis-5.0.7 /usr/local/src/redis</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>打开&#x2F;usr&#x2F;local&#x2F;src&#x2F;redis&#x2F;deps进行编译依赖项</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">进入redis的deps目录下</span><br><span class="line">cd /usr/local/src/redis/deps</span><br><span class="line">编辑依赖</span><br><span class="line">make hiredis lua jemalloc linenoise</span><br><span class="line">进入redis目录下</span><br><span class="line">cd /usr/local/src/redis</span><br><span class="line">执行配置命令</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>将配置完成的软件安装到&#x2F;usr&#x2F;local&#x2F;redis里面</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">创建文件夹</span><br><span class="line">mkdir  -p /usr/local/redis</span><br><span class="line">进行安装</span><br><span class="line">make install PREFIX=/usr/local/redis</span><br></pre></td></tr></table></figure>
+
+<p>​	看到次界面则表示安装成功</p>
+<p><img src="E:/%E7%AC%94%E8%AE%B0%E6%9C%AC/java/08_redis/assets/clip_image002.jpg" alt="img"> </p>
+<ul>
+<li><strong>验证是否成功</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/redis/bin</span><br><span class="line">ls</span><br></pre></td></tr></table></figure>
+
+<p>看到如下启动文件就可以了</p>
+<p><img src="E:/%E7%AC%94%E8%AE%B0%E6%9C%AC/java/08_redis/assets/clip_image001-1655539515894.png" alt="img"> </p>
+<ul>
+<li><strong>把配置文件移动到&#x2F;usr&#x2F;local&#x2F;redis&#x2F;conf目录</strong></li>
+</ul>
+<blockquote>
+<p>创建目录</p>
+<p>mkdir &#x2F;usr&#x2F;local&#x2F;redis&#x2F;conf</p>
+<p>复制</p>
+<p>cp &#x2F;usr&#x2F;local&#x2F;src&#x2F;redis&#x2F;redis.conf &#x2F;usr&#x2F;local&#x2F;redis&#x2F;conf </p>
+</blockquote>
+<ul>
+<li><strong>启动Redis</strong></li>
+</ul>
+<blockquote>
+<p>进入软件启动文件位置</p>
+<p>cd &#x2F;usr&#x2F;local&#x2F;redis&#x2F;bin </p>
+<p>启动软件（指定配置文件）</p>
+<p>.&#x2F;redis-server &#x2F;usr&#x2F;local&#x2F;redis&#x2F;conf&#x2F;redis.conf</p>
+</blockquote>
+<p>看见下图则表示启动成功</p>
+<p><img src="E:/%E7%AC%94%E8%AE%B0%E6%9C%AC/java/08_redis/assets/clip_image002-1655540061646.png" alt="img"> </p>
+<ul>
+<li><strong>默认情况，Redis是不能在后台运行，我们需要把redis放在后台运行</strong></li>
+</ul>
+<blockquote>
+<p>更改配置文件</p>
+<p> vi &#x2F;usr&#x2F;local&#x2F;redis&#x2F;conf&#x2F;redis.conf</p>
+</blockquote>
+<p><img src="E:/%E7%AC%94%E8%AE%B0%E6%9C%AC/java/08_redis/assets/clip_image002-1655540162096.png" alt="img"> </p>
+<ul>
+<li><strong>退出redis并重启</strong></li>
+</ul>
+<blockquote>
+<p>退出</p>
+<p>cd &#x2F;usr&#x2F;local&#x2F;redis&#x2F;bin<br>.&#x2F;redis-cli shutdown</p>
+<p>或者</p>
+<p>ps -ef|grep redis    </p>
+<p>kill -9 进程号 </p>
+<p>启动</p>
+<p>.&#x2F;redis-server &#x2F;usr&#x2F;local&#x2F;redis&#x2F;conf&#x2F;redis.conf </p>
+<p>查看进程</p>
+<p>ps -ef|grep redis</p>
+</blockquote>
+<p><img src="E:/%E7%AC%94%E8%AE%B0%E6%9C%AC/java/08_redis/assets/clip_image001-1655540525825.png" alt="img"> </p>
+<p>可以看到在6379端口号已启动了</p>
+<h2 id="客户端连接与退出"><a href="#客户端连接与退出" class="headerlink" title="客户端连接与退出"></a>客户端连接与退出</h2><ul>
+<li>连接：</li>
+</ul>
+<blockquote>
+<p>.&#x2F;redis-cli<br>其实相当于进入本机的redis服务器   .&#x2F;redis-cli -h 127.0.0.1 -p 6379 同时默认进入的数据库为 0 数据库（有0~15）<br>如果连接的redis不是本机的或者端口号不是6379 则需要使用-h（ip）或者-p（端口）<br>在进入客户端后，测试连接是否成功： <code>ping</code>  如果响应 <code>PONG</code>  表示发送数据与接收数据成功</p>
+</blockquote>
+<ul>
+<li>退出客户端：</li>
+</ul>
+<blockquote>
+<p>exit</p>
+</blockquote>
+<h2 id="退出服务端"><a href="#退出服务端" class="headerlink" title="退出服务端"></a>退出服务端</h2><p>链接客户端的退出只是指退出操作界面；此退出表示退出服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">标准退出：退出服务器，在客户端使用指令 `shutdown`</span><br><span class="line"></span><br><span class="line">强制退出： kill -9 redid的进程号</span><br></pre></td></tr></table></figure>
+
+<h2 id="设置redis开机自启"><a href="#设置redis开机自启" class="headerlink" title="设置redis开机自启"></a>设置redis开机自启</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/rc.local</span><br><span class="line">加入redis的绝对路径</span><br><span class="line">/usr/local/redis/bin/redis-server /usr/local/redis/conf/redis.conf</span><br></pre></td></tr></table></figure>
+
+<h2 id="bin文件介绍"><a href="#bin文件介绍" class="headerlink" title="bin文件介绍"></a>bin文件介绍</h2><p>redis-server   redis服务器的启动程序</p>
+<p>redis-cli          redis客户端的启动程序</p>
+<p>redis-rdb       与redis的rdb持久化方案相关的程序（定时）</p>
+<p>redis-aof       与redis的aof持久化方案相关的程序（监视）</p>
+<p>redis-benchmark  redis的压力测试工具</p>
+<p>redis-sentinel       redis的哨兵模式程序</p>
+<h1 id="配置长参数详解"><a href="#配置长参数详解" class="headerlink" title="配置长参数详解"></a>配置长参数详解</h1><table>
+<thead>
+<tr>
+<th align="center">daemonize：</th>
+<th align="left">如需要在后台运行，把该项的值改为yes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">pdifile：</td>
+<td align="left">把pid文件放在&#x2F;var&#x2F;run&#x2F;redis.pid，可以配置到其他地址</td>
+</tr>
+<tr>
+<td align="center">bind：</td>
+<td align="left">指定redis只接收来自该IP的请求，如果不设置，那么将处理所有请求，在生产环节中最好设置该项</td>
+</tr>
+<tr>
+<td align="center">port：</td>
+<td align="left">监听端口，默认为6379</td>
+</tr>
+<tr>
+<td align="center">timeout：</td>
+<td align="left">设置客户端连接时的超时时间，单位为秒</td>
+</tr>
+<tr>
+<td align="center">loglevel：</td>
+<td align="left">等级分为4级，debug，revbose，notice和warning。生产环境下一般开启notice</td>
+</tr>
+<tr>
+<td align="center">logfile：</td>
+<td align="left">配置log文件地址，默认使用标准输出，即打印在命令行终端的端口上</td>
+</tr>
+<tr>
+<td align="center">database：</td>
+<td align="left">设置数据库的个数，默认使用的数据库是0</td>
+</tr>
+<tr>
+<td align="center">save：</td>
+<td align="left">设置redis进行数据库镜像的频率</td>
+</tr>
+<tr>
+<td align="center">rdbcompression：</td>
+<td align="left">在进行镜像备份时，是否进行压缩</td>
+</tr>
+<tr>
+<td align="center">dbfilename：</td>
+<td align="left">镜像备份文件的文件名</td>
+</tr>
+<tr>
+<td align="center">dir：</td>
+<td align="left">数据库镜像备份的文件放置的路径</td>
+</tr>
+<tr>
+<td align="center">slaveof：</td>
+<td align="left">设置该数据库为其他数据库的从数据库</td>
+</tr>
+<tr>
+<td align="center">masterauth：</td>
+<td align="left">当主数据库连接需要密码验证时，在这里设定</td>
+</tr>
+<tr>
+<td align="center">requirepass：</td>
+<td align="left">设置客户端连接后进行任何其他指定前需要使用的密码</td>
+</tr>
+<tr>
+<td align="center">maxclients：</td>
+<td align="left">限制同时连接的客户端数量</td>
+</tr>
+<tr>
+<td align="center">maxmemory：</td>
+<td align="left">设置redis能够使用的最大内存</td>
+</tr>
+<tr>
+<td align="center">appendonly：</td>
+<td align="left">开启appendonly模式后，redis会把每一次所接收到的写操作都追加到appendonly.aof文件中，当redis重新启动 时，会从该文件恢复出之前的状态</td>
+</tr>
+<tr>
+<td align="center">appendfsync：</td>
+<td align="left">设置appendonly.aof文件进行同步的频率</td>
+</tr>
+<tr>
+<td align="center">vm_enabled：</td>
+<td align="left">是否开启虚拟内存支持</td>
+</tr>
+<tr>
+<td align="center">vm_swap_file：</td>
+<td align="left">设置虚拟内存的交换文件的路径</td>
+</tr>
+<tr>
+<td align="center">vm_max_momery：</td>
+<td align="left">设置开启虚拟内存后，redis将使用的最大物理内存的大小，默认为0</td>
+</tr>
+<tr>
+<td align="center">vm_page_size：</td>
+<td align="left">设置虚拟内存页的大小</td>
+</tr>
+<tr>
+<td align="center">vm_pages：</td>
+<td align="left">设置交换文件的总的page数量</td>
+</tr>
+<tr>
+<td align="center">vm_max_thrrads：</td>
+<td align="left">设置vm IO同时使用的线程数量</td>
+</tr>
+</tbody></table>
+<h1 id="常见命令"><a href="#常见命令" class="headerlink" title="常见命令"></a>常见命令</h1><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">keys *</td>
+<td align="left">查询当前数据中所有的key</td>
+</tr>
+<tr>
+<td align="center">select index</td>
+<td align="left">切换数据库 （在进入redis客服端后使用，redis服务器默认有16个数据库[0~15]）</td>
+</tr>
+<tr>
+<td align="center">flushdb</td>
+<td align="left">清空当前数据库</td>
+</tr>
+<tr>
+<td align="center">flshall</td>
+<td align="left">清空所有数据库</td>
+</tr>
+<tr>
+<td align="center">del key</td>
+<td align="left">删除指定key对应的数据</td>
+</tr>
+<tr>
+<td align="center">expire key 10</td>
+<td align="left">设置指定key对应的数据的过期时间</td>
+</tr>
+<tr>
+<td align="center">pexpire key 1000</td>
+<td align="left">设置key的过期时间单位是毫秒</td>
+</tr>
+<tr>
+<td align="center">persist key</td>
+<td align="left">删除过期时间</td>
+</tr>
+<tr>
+<td align="center">ttl key</td>
+<td align="left">查看指定key对应数据的过期时间。  -1：表示没有过期时间  -2：表示已经过期</td>
+</tr>
+<tr>
+<td align="center">type key</td>
+<td align="left">类型</td>
+</tr>
+<tr>
+<td align="center">exists key</td>
+<td align="left">判断是否存在key</td>
+</tr>
+</tbody></table>
+<h1 id="操作不同的数据类型"><a href="#操作不同的数据类型" class="headerlink" title="操作不同的数据类型"></a>操作不同的数据类型</h1><h2 id="string类型的数据"><a href="#string类型的数据" class="headerlink" title="string类型的数据"></a>string类型的数据</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">set key value  存放key-vulue </span><br><span class="line">get key  获取key的值</span><br><span class="line">getset name new_cxx 设置值，返回旧值</span><br><span class="line">mset key1 v1 key2 v2 批量设置</span><br><span class="line">mget key1 key2 批量获取</span><br><span class="line">setnx key value 不存在就插入（set if not exists） 分布式锁</span><br><span class="line">incr age 递增</span><br><span class="line">incrby age 10 递增</span><br><span class="line">decr age 递减</span><br><span class="line">decrby age 10 递减</span><br><span class="line">strlen 长度</span><br><span class="line">getrange name 0 -1 字符串分段   0 -1是全部   0 -2  ==n-1</span><br><span class="line">setrange key index value 从index开始替换value</span><br><span class="line">incrbyfloat 增减浮点数</span><br><span class="line">append 追加</span><br><span class="line">object encoding key  得到key 的类型  string里面有三种编码</span><br><span class="line">	int  用于能够作用64位有符号整数表示的字符串</span><br><span class="line">	embstr 用于长度小于或等于44字节  Redis3.x中是39字节，这种类型的编码在内存使用		  时性能更好</span><br><span class="line">	raw  用于长度大于44字节的</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="list类型的数据"><a href="#list类型的数据" class="headerlink" title="list类型的数据"></a>list类型的数据</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">lpush key  values    l=left    r =rigth     </span><br><span class="line">lpush mylist a b c 左插入</span><br><span class="line">    rpush mylist x y z 右插入</span><br><span class="line">    lrange mylist 0 -1 取出数据集合  0 -1是取出所有   0   1取第一个和第二个</span><br><span class="line">    lpop mylist 弹出集合最后一个元素  弹出之后就没有了哦</span><br><span class="line">    rpop mylist 弹出第一个元素  弹出之后就没有了哦</span><br><span class="line">    lrem mylist count value 删除</span><br><span class="line">        |-COUNT 的值可以是以下几种：</span><br><span class="line">            |--count &gt; 0 : 从表头开始向表尾搜索，移除与 VALUE 相等的元素，数量为 COUNT 。</span><br><span class="line">            |--count &lt; 0 : 从表尾开始向表头搜索，移除与 VALUE 相等的元素，数量为 COUNT 的绝对值。</span><br><span class="line">            |--count = 0 : 移除表中所有与 VALUE 相等的值。</span><br><span class="line">    lindex mylist 2 指定索引的值</span><br><span class="line">    llen mylist 长度  </span><br><span class="line">    lset mylist 2 n 索引设值</span><br><span class="line">    ltrim mylist 0 4   </span><br><span class="line">            |--对一个列表进行修剪(trim)，就是说，让列表只保留指定区间内的元素，不在指定区间之内的元素都将被删除。</span><br><span class="line">				下标 0 表示列表的第一个元素，以 1 表示列表的第二个元素，以此类推。 </span><br><span class="line">				你也可以使用负数下标，以 -1 表示列表的最后一个元素， -2 表示列表的倒数第二个元素，以此类推。</span><br><span class="line">    linsert mylist before a 插入</span><br><span class="line">    linsert mylist after a 插入</span><br><span class="line">            |--命令用于在列表的元素前或者后插入元素。 当指定元素不存在于列表中时，不执行任何操作。 </span><br><span class="line">				当列表不存在时，被视为空列表，不执行任何操作。 如果 key 不是列表类型，返回一个错误。</span><br><span class="line">    rpoplpush list list2 转移列表的数据</span><br><span class="line">            |--命令用于移除列表的最后一个元素，并将该元素添加到另一个列表并返回。</span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">流光</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/post/e4c85558.html">http://example.com/post/e4c85558.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">流光</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%BD%AF%E4%BB%B6/">软件</a><a class="post-meta__tags" href="/tags/NoSQL/">NoSQL</a></div><div class="post_share"><div class="social-share" data-image="https://th.wallhaven.cc/lg/y8/y86g17.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/post/68689ca1.html"><img class="next-cover" src="https://th.wallhaven.cc/lg/y8/y8622k.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">hexo+github搭建个人博客</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/f255ffad.html" title="docker"><img class="cover" src="http://up.36992.com/pic/e6/c5/51/e6c551e768092c8655292d89a4034a74.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-16</div><div class="title">docker</div></div></a></div><div><a href="/post/c24675b4.html" title="MySQL"><img class="cover" src="https://w.wallhaven.cc/full/v9/wallhaven-v96m6p.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-17</div><div class="title">MySQL</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">流光</div><div class="author-info__description">大野要常来呀！</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/quhuiya" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:362848985@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#NoSql%E9%9D%9E%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.</span> <span class="toc-text">NoSql非关系型数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#NoSql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.1.</span> <span class="toc-text">NoSql数据库类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%AE%E5%80%BC%E5%9E%8B%EF%BC%88Key-Value%EF%BC%89%E6%95%B0%E6%8D%AE%E5%BA%93-Redis-x2F-Memcached"><span class="toc-number">1.1.1.</span> <span class="toc-text">键值型（Key-Value）数据库[Redis&#x2F;Memcached]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E6%A1%A3%E5%9E%8B%EF%BC%88Document-Oriented%EF%BC%89%E6%95%B0%E6%8D%AE%E5%BA%93-MongoDB-ES"><span class="toc-number">1.1.2.</span> <span class="toc-text">文档型（Document-Oriented）数据库[MongoDB] ES</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%97%E5%AD%98%E5%82%A8%EF%BC%88Wide-Column-Store-x2F-Column-Family%EF%BC%89%E6%95%B0%E6%8D%AE%E5%BA%93-HBASE"><span class="toc-number">1.1.3.</span> <span class="toc-text">列存储（Wide Column Store&#x2F;Column-Family）数据库[HBASE]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%EF%BC%88Graph-Oriented%EF%BC%89%E6%95%B0%E6%8D%AE%E5%BA%93-Neo4J-infoGird"><span class="toc-number">1.1.4.</span> <span class="toc-text">图（Graph-Oriented）数据库[Neo4J,infoGird]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84NoSql%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.2.</span> <span class="toc-text">常见的NoSql数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93NoSql"><span class="toc-number">1.3.</span> <span class="toc-text">总结NoSql</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Redis%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.</span> <span class="toc-text">Redis数据库的介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-number">2.1.</span> <span class="toc-text">Redis的特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%AF%E6%8C%81%E5%A4%9A%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%9A"><span class="toc-number">2.2.</span> <span class="toc-text">支持多种数据类型：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">2.3.</span> <span class="toc-text">Redis的应用场景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BC%93%E5%AD%98%EF%BC%88%E6%8F%90%E9%AB%98%E8%AE%BF%E9%97%AE%E6%80%A7%E8%83%BD%EF%BC%89"><span class="toc-number">2.3.1.</span> <span class="toc-text">数据缓存（提高访问性能）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%9A%E8%AF%9D%E7%BC%93%E5%AD%98%EF%BC%88%E5%85%B1%E4%BA%ABsession%EF%BC%89"><span class="toc-number">2.3.2.</span> <span class="toc-text">会话缓存（共享session）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%92%E8%A1%8C%E6%A6%9C-x2F-%E8%AE%A1%E6%95%B0%E5%99%A8"><span class="toc-number">2.3.3.</span> <span class="toc-text">排行榜&#x2F;计数器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%EF%BC%88ActiveMQ-x2F-RabbitMQ-x2F-Kafka-x2F-RocketMQ%EF%BC%89"><span class="toc-number">2.3.4.</span> <span class="toc-text">消息队列（ActiveMQ&#x2F;RabbitMQ&#x2F;Kafka&#x2F;RocketMQ）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#redis%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE"><span class="toc-number">3.</span> <span class="toc-text">redis的安装与配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9E%E6%8E%A5%E4%B8%8E%E9%80%80%E5%87%BA"><span class="toc-number">3.1.</span> <span class="toc-text">客户端连接与退出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%80%E5%87%BA%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="toc-number">3.2.</span> <span class="toc-text">退出服务端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AEredis%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF"><span class="toc-number">3.3.</span> <span class="toc-text">设置redis开机自启</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bin%E6%96%87%E4%BB%B6%E4%BB%8B%E7%BB%8D"><span class="toc-number">3.4.</span> <span class="toc-text">bin文件介绍</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E9%95%BF%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3"><span class="toc-number">4.</span> <span class="toc-text">配置长参数详解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4"><span class="toc-number">5.</span> <span class="toc-text">常见命令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E4%B8%8D%E5%90%8C%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">6.</span> <span class="toc-text">操作不同的数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#string%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="toc-number">6.1.</span> <span class="toc-text">string类型的数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#list%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="toc-number">6.2.</span> <span class="toc-text">list类型的数据</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/e4c85558.html" title="非关系型数据库 Redis的安装使用"><img src="https://th.wallhaven.cc/lg/y8/y86g17.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="非关系型数据库 Redis的安装使用"/></a><div class="content"><a class="title" href="/post/e4c85558.html" title="非关系型数据库 Redis的安装使用">非关系型数据库 Redis的安装使用</a><time datetime="2022-06-18T09:24:09.000Z" title="发表于 2022-06-18 17:24:09">2022-06-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/68689ca1.html" title="hexo+github搭建个人博客"><img src="https://th.wallhaven.cc/lg/y8/y8622k.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="hexo+github搭建个人博客"/></a><div class="content"><a class="title" href="/post/68689ca1.html" title="hexo+github搭建个人博客">hexo+github搭建个人博客</a><time datetime="2022-06-18T03:48:30.000Z" title="发表于 2022-06-18 11:48:30">2022-06-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/c24675b4.html" title="MySQL"><img src="https://w.wallhaven.cc/full/v9/wallhaven-v96m6p.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MySQL"/></a><div class="content"><a class="title" href="/post/c24675b4.html" title="MySQL">MySQL</a><time datetime="2022-06-17T02:09:16.000Z" title="发表于 2022-06-17 10:09:16">2022-06-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/f255ffad.html" title="docker"><img src="http://up.36992.com/pic/e6/c5/51/e6c551e768092c8655292d89a4034a74.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="docker"/></a><div class="content"><a class="title" href="/post/f255ffad.html" title="docker">docker</a><time datetime="2022-06-16T12:28:30.000Z" title="发表于 2022-06-16 20:28:30">2022-06-16</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://th.wallhaven.cc/lg/y8/y86g17.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2022 By 流光</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">欢迎大家访问我的博客</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'lIhEclacke2nrQDO3uL8tDcc-gzGzoHsz',
+      appKey: '5kavH0BX6jJnUjser4SX06h9',
+      avatar: 'monsterid',
+      serverURLs: 'https://liheclac.lc-cn-n1-shared.com',
+      emojiMaps: {"tv-白眼":"https://i0.hdslb.com/bfs/emote/c1d59f439e379ee50eef488bcb5e5378e5044ea4.png","tv-doge":"https://i0.hdslb.com/bfs/emote/6ea59c827c414b4a2955fe79e0f6fd3dcd515e24.png","tv-坏笑":"https://i0.hdslb.com/bfs/emote/1f0b87f731a671079842116e0991c91c2c88645a.png","tv-难过":"https://i0.hdslb.com/bfs/emote/87f46748d3f142ebc6586ff58860d0e2fc8263ba.png","tv-生气":"https://i0.hdslb.com/bfs/emote/26702dcafdab5e8225b43ffd23c94ac1ff932654.png","tv-委屈":"https://i0.hdslb.com/bfs/emote/d04dba7b5465779e9755d2ab6f0a897b9b33bb77.png","tv-斜眼笑":"https://i0.hdslb.com/bfs/emote/911f987aa8bc1bee12d52aafe62bc41ef4474e6c.png","tv-呆":"https://i0.hdslb.com/bfs/emote/fe1179ebaa191569b0d31cecafe7a2cd1c951c9d.png","tv-发怒":"https://i0.hdslb.com/bfs/emote/34ba3cd204d5b05fec70ce08fa9fa0dd612409ff.png","tv-惊吓":"https://i0.hdslb.com/bfs/emote/0d15c7e2ee58e935adc6a7193ee042388adc22af.png","tv-呕吐":"https://i0.hdslb.com/bfs/emote/9f996894a39e282ccf5e66856af49483f81870f3.png","tv-思考":"https://i0.hdslb.com/bfs/emote/90cf159733e558137ed20aa04d09964436f618a1.png","tv-微笑":"https://i0.hdslb.com/bfs/emote/70dc5c7b56f93eb61bddba11e28fb1d18fddcd4c.png","tv-疑问":"https://i0.hdslb.com/bfs/emote/0793d949b18d7be716078349c202c15ff166f314.png","tv-大哭":"https://i0.hdslb.com/bfs/emote/23269aeb35f99daee28dda129676f6e9ea87934f.png","tv-鼓掌":"https://i0.hdslb.com/bfs/emote/1d21793f96ef4e6f48b23e53e3b9e42da833a0f6.png","tv-抠鼻":"https://i0.hdslb.com/bfs/emote/c666f55e88d471e51bbd9fab9bb308110824a6eb.png","tv-亲亲":"https://i0.hdslb.com/bfs/emote/a8111ad55953ef5e3be3327ef94eb4a39d535d06.png","tv-调皮":"https://i0.hdslb.com/bfs/emote/b9c41de8e82dd7a8515ae5e3cb63e898bf245186.png","tv-笑哭":"https://i0.hdslb.com/bfs/emote/1abc628f6d4f4caf9d0e7800878f4697abbc8273.png","tv-晕":"https://i0.hdslb.com/bfs/emote/5443c22b4d07fb1907ccc610c8e6db254f2461b7.png","tv-点赞":"https://i0.hdslb.com/bfs/emote/f85c354995bd99e28fc76c869bfe42ba6438eff4.png","tv-害羞":"https://i0.hdslb.com/bfs/emote/a37683fb5642fa3ddfc7f4e5525fd13e42a2bdb1.png","tv-睡着":"https://i0.hdslb.com/bfs/emote/8b196675b53af58264f383c50ad0945048290b33.png","tv-色":"https://i0.hdslb.com/bfs/emote/61822c7e9aae5da76475e7892534545336b23a6f.png","tv-吐血":"https://i0.hdslb.com/bfs/emote/09dd16a7aa59b77baa1155d47484409624470c77.png","tv-无奈":"https://i0.hdslb.com/bfs/emote/ea8ed89ee9878f2fece2dda0ea8a5dbfe21b5751.png","tv-再见":"https://i0.hdslb.com/bfs/emote/180129b8ea851044ce71caf55cc8ce44bd4a4fc8.png","tv-流汗":"https://i0.hdslb.com/bfs/emote/cead1c351ab8d79e9f369605beb90148db0fbed3.png","tv-偷笑":"https://i0.hdslb.com/bfs/emote/bb690d4107620f1c15cff29509db529a73aee261.png","tv-抓狂":"https://i0.hdslb.com/bfs/emote/fe31c08edad661d63762b04e17b8d5ae3c71a757.png","tv-黑人问号":"https://i0.hdslb.com/bfs/emote/45821a01f51bc867da9edbaa2e070410819a95b2.png","tv-困":"https://i0.hdslb.com/bfs/emote/241ee304e44c0af029adceb294399391e4737ef2.png","tv-打脸":"https://i0.hdslb.com/bfs/emote/56ab10b624063e966bfcb76ea5dc4794d87dfd47.png","tv-闭嘴":"https://i0.hdslb.com/bfs/emote/c9e990da7f6e93975e25fd8b70e2e290aa4086ef.png","tv-鄙视":"https://i0.hdslb.com/bfs/emote/6e72339f346a692a495b123174b49e4e8e781303.png","tv-腼腆":"https://i0.hdslb.com/bfs/emote/89712c0d4af73e67f89e35cbc518420380a7f6f4.png","tv-馋":"https://i0.hdslb.com/bfs/emote/fc7e829b845c43c623c8b490ee3602b7f0e76a31.png","tv-可爱":"https://i0.hdslb.com/bfs/emote/9e55fd9b500ac4b96613539f1ce2f9499e314ed9.png","tv-发财":"https://i0.hdslb.com/bfs/emote/34db290afd2963723c6eb3c4560667db7253a21a.png","tv-生病":"https://i0.hdslb.com/bfs/emote/8b0ec90e6b86771092a498c54f09fc94621c1900.png","tv-流鼻血":"https://i0.hdslb.com/bfs/emote/c32d39db2737f89b904ca32700d140a9241b0767.png","tv-尴尬":"https://i0.hdslb.com/bfs/emote/7cfa62dafc59798a3d3fb262d421eeeff166cfa4.png","tv-大佬":"https://i0.hdslb.com/bfs/emote/093c1e2c490161aca397afc45573c877cdead616.png","tv-流泪":"https://i0.hdslb.com/bfs/emote/7e71cde7858f0cd50d74b0264aa26db612a8a167.png","tv-冷漠":"https://i0.hdslb.com/bfs/emote/b9cbc755c2b3ee43be07ca13de84e5b699a3f101.png","tv-皱眉":"https://i0.hdslb.com/bfs/emote/72ccad6679fea0d14cce648b4d818e09b8ffea2d.png","tv-鬼脸":"https://i0.hdslb.com/bfs/emote/0ffbbddf8a94d124ca2f54b360bbc04feb6bbfea.png","tv-调侃":"https://i0.hdslb.com/bfs/emote/4bc022533ef31544ca0d72c12c808cf4a1cce3e3.png","tv-目瞪口呆":"https://i0.hdslb.com/bfs/emote/0b8cb81a68de5d5365212c99375e7ace3e7891b7.png","小电视-无语":"https://i0.hdslb.com/bfs/emote/fbd12affebfdaadd3d721bffdb685a6b1ee71219.png","2233娘-大笑":"https://i0.hdslb.com/bfs/emote/16b8794be990cefa6caeba4d901b934a227ee3b8.png","2233娘-吃惊":"https://i0.hdslb.com/bfs/emote/d1628c43d35b1530c0504a643ff80b6189fa0a43.png","2233娘-大哭":"https://i0.hdslb.com/bfs/emote/476a2a60f6e337b8c0697a592e0aa82781f6b33b.png","2233娘-耶":"https://i0.hdslb.com/bfs/emote/d7178e258a0efc969b65ccc2b1322fb235f5dff4.png","2233娘-卖萌":"https://i0.hdslb.com/bfs/emote/ea893aa25355de95ab4f03c2dad3f0c58d0c159e.png","2233娘-疑问":"https://i0.hdslb.com/bfs/emote/0b41f509351958dbb63d472fec0132d1bd03bd14.png","2233娘-汗":"https://i0.hdslb.com/bfs/emote/247cd9df8cdf84b18368c21e3b2dd374e84c0927.png","2233娘-困惑":"https://i0.hdslb.com/bfs/emote/714eeb4eae0d0933b4ff08b7df788b1982f6b940.png","2233娘-怒":"https://i0.hdslb.com/bfs/emote/f31953119c51b9748016440ac0b632f779929b37.png","2233娘-委屈":"https://i0.hdslb.com/bfs/emote/d9d0bf9d358af8d5761093ec66d4e3f60d963a63.png","2233娘-郁闷":"https://i0.hdslb.com/bfs/emote/485203fe7100f2c8fc40b2800a18fe20b35f2f1a.png","2233娘-第一":"https://i0.hdslb.com/bfs/emote/3754ee6e5985bd0bd7dfb668981f2a8733398ebd.png","2233娘-喝水":"https://i0.hdslb.com/bfs/emote/695bf5429472049b52c1e0de586f8a2511195a23.png","2233娘-吐魂":"https://i0.hdslb.com/bfs/emote/e999af499edf38a91ca68b1a9d2f97042c1d6734.png","2233娘-无言":"https://i0.hdslb.com/bfs/emote/fdb5870f32cfaf7949e0f88a13f6feba4a48b719.png","蛆音娘-卖萌":"https://i0.hdslb.com/bfs/emote/4cd1024d0c2ecee93224477946656d32c1705ccf.png","蛆音娘-吃瓜群众":"https://i0.hdslb.com/bfs/emote/5d0d6cc54b508d30b4f50b6b5f7b7e1e259d84ea.png","蛆音娘-吃惊":"https://i0.hdslb.com/bfs/emote/7a4cb0b644214d476ce198ddf6a7a0aa31311199.png","蛆音娘-害怕":"https://i0.hdslb.com/bfs/emote/7407634bf67bfe9d7806f15d57608a1b18c2b4c2.png","蛆音娘-扶额":"https://i0.hdslb.com/bfs/emote/a4d8f95baaa24821fd591a7dbeee1b869e760f59.png","蛆音娘-滑稽":"https://i0.hdslb.com/bfs/emote/d3717f10ffe9787336bc39a09214270988521a67.png","蛆音娘-哼":"https://i0.hdslb.com/bfs/emote/8854f1b8a82126e3b87f3a1563da5feb55b23e71.png","蛆音娘-机智":"https://i0.hdslb.com/bfs/emote/e543c0a823ca915df9362283f4ae950e9e9cc2e9.png","蛆音娘-哭泣":"https://i0.hdslb.com/bfs/emote/a23055546c19eba663b16370b8e072394d87ff53.png","蛆音娘-睡觉觉":"https://i0.hdslb.com/bfs/emote/40ef7e6d931acb37e5514b70d13663e86dc3698b.png","蛆音娘-生气":"https://i0.hdslb.com/bfs/emote/bf398cbbcfaae107d1b59aaf03895f38422e3d87.png","蛆音娘-偷看":"https://i0.hdslb.com/bfs/emote/52463ded4f23649db10ba3ced662ed946c5edf0b.png","蛆音娘-吐血":"https://i0.hdslb.com/bfs/emote/5772d22015e5b2b40a9fe302b5967ec7282ac848.png","蛆音娘-无语":"https://i0.hdslb.com/bfs/emote/b6c763c6484ce2e48299ceb21861e46318868871.png","蛆音娘-摇头":"https://i0.hdslb.com/bfs/emote/b7278f750c6f2235f41f37056d727f25d3bf781f.png","蛆音娘-疑问":"https://i0.hdslb.com/bfs/emote/7750b698d15a1b8e83c0f59106e8e9cd5cb57897.png","蛆音娘-die":"https://i0.hdslb.com/bfs/emote/52543025a070fde5c01a10320c9636ec3173ac99.png","蛆音娘-OK":"https://i0.hdslb.com/bfs/emote/52a0dcee66c91bf123bf53bd48a269b1317d17f9.png","蛆音娘-肥皂":"https://i0.hdslb.com/bfs/emote/7f1a857e9430dcf3050ce0ef5fa19aefebea6dc4.png","蛆音娘-大笑":"https://i0.hdslb.com/bfs/emote/1d3355fb89c24ab3c50e5c152d8b990a290dc63e.png","洛天依-傲娇":"https://i0.hdslb.com/bfs/emote/5d7c8307af10540909fce6121066249df3935a24.png","洛天依-吃包群众":"https://i0.hdslb.com/bfs/emote/f8cdabfc1b81fd25b85b8457ee49a20a4fc5d91b.png","洛天依-吃药":"https://i0.hdslb.com/bfs/emote/883e6654176ebcecafd3e52efa8ee842357e18a0.png","洛天依-滑稽":"https://i0.hdslb.com/bfs/emote/692cef7ca51f935aaa499de7e4d6048c53f42324.png","洛天依-哈哈哈":"https://i0.hdslb.com/bfs/emote/677c2f5555c1e79fc336a6283fdbbdc7ea88fec4.png","洛天依-看透一切":"https://i0.hdslb.com/bfs/emote/4fac414b5002c3739b1ae24f2fc27b5f150ade24.png","洛天依-打call":"https://i0.hdslb.com/bfs/emote/2ab983b2519dc241666254de8e5352fbeedc96bb.png","洛天依-前排":"https://i0.hdslb.com/bfs/emote/fbbc45e7aee2f256f691df539db0cfcc35b3be7d.png","洛天依-去吧":"https://i0.hdslb.com/bfs/emote/0edeeb0d10d44302854e636c47f5dc3aa96a9206.png","洛天依-冷漠":"https://i0.hdslb.com/bfs/emote/5f4385db3c9806b08ea15bd9ff444af9d9fe0c3a.png","洛天依-可以":"https://i0.hdslb.com/bfs/emote/967377b83e37a0d5dd13bc0f4e4323abf10e4cbf.png","洛天依-掀桌":"https://i0.hdslb.com/bfs/emote/803129b7a1143faabc63c2648335b7d506229e7a.png","洛天依-消灭你":"https://i0.hdslb.com/bfs/emote/d96dccf8fa248ee34c7e4aba94e813bec28d2dd8.png","洛天依-阴阳先生":"https://i0.hdslb.com/bfs/emote/65e195a8ac54bb678dd1c1e6ce6c5d4ba02761b3.png","洛天依-无言以对":"https://i0.hdslb.com/bfs/emote/9cfd368b370acd40c1b8f933cec3fb24883356a5.png","洛天依-？？？":"https://i0.hdslb.com/bfs/emote/f5f1ebe50c26d5f6d4e17cb983bd5ae59f103dda.png","洛天依-爱你哦":"https://i0.hdslb.com/bfs/emote/7102c9e25359af8348489ff8529b3bb2c5bd05d0.png","泠鸢yousa-awsl":"https://i0.hdslb.com/bfs/emote/7663b729161bd4556c2ec318c07791000743eb56.png","泠鸢yousa-打call":"https://i0.hdslb.com/bfs/emote/718e9495846db4172eb87d2f7f02015a34d35ea2.png","泠鸢yousa-沉默":"https://i0.hdslb.com/bfs/emote/5e967cf1669743ed92e9a8ff3e5de6d90ca63d3d.png","泠鸢yousa-大哭":"https://i0.hdslb.com/bfs/emote/3f757b147b9b1e201470eae7dac9cc0360172569.png","泠鸢yousa-干杯":"https://i0.hdslb.com/bfs/emote/5cf5e14101be845233a222ab1bbdc21c63af04c3.png","泠鸢yousa-好人卡":"https://i0.hdslb.com/bfs/emote/e3907b3bb20b18e7ecb11cd86829c9a4ce5b1b2f.png","泠鸢yousa-加大力度":"https://i0.hdslb.com/bfs/emote/a0393a2d4b522f07a319dfd2e91754a3cdff2c48.png","泠鸢yousa-滑稽":"https://i0.hdslb.com/bfs/emote/a8057c0e0579b93c16010a270e261fd0a64034af.png","泠鸢yousa-请吃桃":"https://i0.hdslb.com/bfs/emote/e92276d9d8c28f85f7dbcc0fbbb6ecb3345ce33e.png","泠鸢yousa-惊讶":"https://i0.hdslb.com/bfs/emote/9fdc2c5b4b970aded56fe2f326bd4d00e849339d.png","泠鸢yousa-生气":"https://i0.hdslb.com/bfs/emote/9e6ba9ff34101e04d3e321cad486f845f892050e.png","泠鸢yousa-贴贴":"https://i0.hdslb.com/bfs/emote/dbc177d314231add509501ffc6bc7655fca2c10f.png","泠鸢yousa-头晕":"https://i0.hdslb.com/bfs/emote/49830c1c8a1652f7ee9cb854ac7dbf8e378cdcd6.png","泠鸢yousa-问号":"https://i0.hdslb.com/bfs/emote/ab7a543233eff83138c3221c86a762ab36bab7bc.png","泠鸢yousa-真棒":"https://i0.hdslb.com/bfs/emote/02ea49543a3ac52feee185c156ab08fb2bfdd89e.png"},
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
