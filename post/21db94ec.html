@@ -1,0 +1,391 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>git学习笔记 | 流光</title><meta name="keywords" content="版本管理"><meta name="author" content="流光"><meta name="copyright" content="流光"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="git介绍Git是目前世界上最先进的分布式版本控制系统。  分布式：Git版本控制系统是一个分布式的系统，是用来保存工程源代码历史状态的命令行工具。 保存点：Git的保存点可以追踪源码中的文件, 并能得到某一个时间点上的整个工程项目的状态；可以在该保存点将多人提交的源码合并, 也可以回退到某一个保存点上。 Git离线操作性：Git可以离线进行代码提交，因此它称得上是完全的分布式处理，Git所有的操">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git学习笔记">
+<meta property="og:url" content="http://example.com/post/21db94ec.html">
+<meta property="og:site_name" content="流光">
+<meta property="og:description" content="git介绍Git是目前世界上最先进的分布式版本控制系统。  分布式：Git版本控制系统是一个分布式的系统，是用来保存工程源代码历史状态的命令行工具。 保存点：Git的保存点可以追踪源码中的文件, 并能得到某一个时间点上的整个工程项目的状态；可以在该保存点将多人提交的源码合并, 也可以回退到某一个保存点上。 Git离线操作性：Git可以离线进行代码提交，因此它称得上是完全的分布式处理，Git所有的操">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://th.wallhaven.cc/lg/e7/e7jj6r.jpg">
+<meta property="article:published_time" content="2022-09-03T09:03:04.000Z">
+<meta property="article:modified_time" content="2022-09-03T09:05:54.631Z">
+<meta property="article:author" content="流光">
+<meta property="article:tag" content="版本管理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://th.wallhaven.cc/lg/e7/e7jj6r.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/post/21db94ec"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'mediumZoom',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'git学习笔记',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-09-03 17:05:54'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/favicon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://th.wallhaven.cc/lg/e7/e7jj6r.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">流光</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">git学习笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-09-03T09:03:04.000Z" title="发表于 2022-09-03 17:03:04">2022-09-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-09-03T09:05:54.631Z" title="更新于 2022-09-03 17:05:54">2022-09-03</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/post/21db94ec.html#post-comment" itemprop="discussionUrl"><span class="valine-comment-count" data-xid="/post/21db94ec.html" itemprop="commentCount"></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="git介绍"><a href="#git介绍" class="headerlink" title="git介绍"></a>git介绍</h1><p>Git是目前世界上最先进的<strong>分布式版本控制系统</strong>。</p>
+<ul>
+<li><strong>分布式：</strong>Git版本控制系统是一个分布式的系统，是用来保存工程源代码历史状态的命令行工具。</li>
+<li><strong>保存点：</strong>Git的保存点可以追踪源码中的文件, 并能得到某一个时间点上的整个工程项目的状态；可以在该保存点将多人提交的源码合并, 也可以回退到某一个保存点上。</li>
+<li><strong>Git离线操作性：</strong>Git可以离线进行代码提交，因此它称得上是完全的分布式处理，Git所有的操作不需要在线进行；这意味着Git的速度要比SVN等工具快得多，因为SVN等工具需要在线时才能操作，如果网络环境不好， 提交代码会变得非常缓慢。</li>
+<li><strong>Git基于快照：</strong>SVN等老式版本控制工具是将提交点保存成补丁文件，Git提交是将提交点指向提交时的项目快照，提交的东西包含一些元数据(作者，日期，GPG等)。</li>
+<li><strong>Git的分支和合并：</strong>分支模型是Git最显著的特点，因为这改变了开发者的开发模式，SVN等版本控制工具将每个分支都要放在不同的目录中，Git可以在同一个目录中切换不同的分支。</li>
+<li><strong>分支即时性：</strong>创建和切换分支几乎是同时进行的，用户可以上传一部分分支，另外一部分分支可以隐藏在本地，不必将所有的分支都上传到GitHub中去。</li>
+<li><strong>分支灵活性：</strong>用户可以随时创建、合并、删除分支，多人实现不同的功能，可以创建多个分支进行开发，之后进行分支合并，这种方式使开发变得快速、简单、安全。</li>
+</ul>
+<h1 id="Git工作流程"><a href="#Git工作流程" class="headerlink" title="Git工作流程"></a>Git工作流程</h1><ul>
+<li>从远程仓库中克隆 Git 资源作为本地仓库。</li>
+<li>从本地仓库中checkout代码然后进行代码修改</li>
+<li>在提交前先将代码提交到暂存区。</li>
+<li>提交修改。提交到本地仓库。本地仓库中保存修改的各个历史版本。</li>
+<li>在修改完成后，需要和团队成员共享代码时，可以将代码push到远程仓库。</li>
+</ul>
+<p><img src="/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk1MDk4Nw==,size_16,color_FFFFFF,t_70.png" alt="在这里插入图片描述"> </p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="Git的安装"><a href="#Git的安装" class="headerlink" title="Git的安装"></a>Git的安装</h2><p>官网下载地址：<a target="_blank" rel="noopener" href="https://git-scm.com/download">https://git-scm.com/download</a></p>
+<h2 id="Git客户端安装过程"><a href="#Git客户端安装过程" class="headerlink" title="Git客户端安装过程"></a>Git客户端安装过程</h2><p>1、双击安装程序“Git-2.23.0-64-bit.exe”</p>
+<p><img src="/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk1MDk4Nw==,size_16,color_FFFFFF,t_70-16573363059472.png" alt="在这里插入图片描述"> </p>
+<p>2、点击“Next”，显示截图如下：</p>
+<p><img src="/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk1MDk4Nw==,size_16,color_FFFFFF,t_70-16573363156654.png" alt="img"> </p>
+<ul>
+<li>根据自己的情况，选择程序的安装目录。</li>
+</ul>
+<p>3、继续点击“Next”，显示截图如下：</p>
+<p><img src="/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk1MDk4Nw==,size_16,color_FFFFFF,t_70-16573363296506.png" alt="在这里插入图片描述"> </p>
+<p>说明：</p>
+<p>（1）图标组件(Addition icons) : 选择是否创建桌面快捷方式。</p>
+<p>（2）桌面浏览(Windows Explorer integration) : 浏览源码的方法，使用bash 或者 使用Git GUI工具。</p>
+<p>（3）关联配置文件 : 是否关联 git 配置文件, 该配置文件主要显示文本编辑器的样式。</p>
+<p>（4）关联shell脚本文件 : 是否关联Bash命令行执行的脚本文件。</p>
+<p>（5）使用TrueType编码 : 在命令行中是否使用TruthType编码, 该编码是微软和苹果公司制定的通用编码。</p>
+<p>4、选择完之后，点击“Next”，显示截图如下：</p>
+<p><img src="/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk1MDk4Nw==,size_16,color_FFFFFF,t_70-16573363397938.png" alt="在这里插入图片描述"> </p>
+<p>开始菜单快捷方式目录：设置开始菜单中快捷方式的目录名称, 也可以选择不在开始菜单中创建快捷方式。</p>
+<p>5、点击“Next”，显示截图如下：</p>
+<p><img src="/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk1MDk4Nw==,size_16,color_FFFFFF,t_70-165733635169810.png" alt="在这里插入图片描述"> </p>
+<p>选择编辑器，可以选vim，练练指令</p>
+<p>6、点击“Next”，显示截图如下：</p>
+<p><img src="/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk1MDk4Nw==,size_16,color_FFFFFF,t_70-165733636209612.png" alt="在这里插入图片描述"> </p>
+<p>设置环境变量</p>
+<p>选择使用什么样的命令行工具，一般情况下我们默认使用Git Bash即可：</p>
+<p>（1）Git自带：使用Git自带的Git Bash命令行工具。</p>
+<p>（2）系统自带CMD：使用Windows系统的命令行工具。</p>
+<p>（3）二者都有：上面二者同时配置，但是注意，这样会将windows中的find.exe 和 sort.exe工具覆盖，如果不懂这些尽量不要选择。</p>
+<p>7、选择之后，继续点击“Next”，显示如下：</p>
+<p><img src="/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk1MDk4Nw==,size_16,color_FFFFFF,t_70-165733637325614.png" alt="在这里插入图片描述"> </p>
+<p><img src="/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk1MDk4Nw==,size_16,color_FFFFFF,t_70-165733639298716.png" alt="在这里插入图片描述"> </p>
+<p>选择提交的时候换行格式</p>
+<p>（1）检查出windows格式转换为unix格式：将windows格式的换行转为unix格式的换行再进行提交。</p>
+<p>（2）检查出原来格式转为unix格式：不管什么格式的，一律转为unix格式的换行再进行提交。</p>
+<p>（3）不进行格式转换 : 不进行转换，检查出什么，就提交什么。</p>
+<p>8、选择之后，点击“Next”，显示截图如下：</p>
+<p><img src="/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk1MDk4Nw==,size_16,color_FFFFFF,t_70-165733640353618.png" alt="在这里插入图片描述"> </p>
+<p>9、选择之后，点击“Next”，显示截图如下：</p>
+<p><img src="/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk1MDk4Nw==,size_16,color_FFFFFF,t_70-165733641016120.png" alt="在这里插入图片描述"> </p>
+<p>10、选择之后，点击“Install”，开始安装</p>
+<p>11、安装完成</p>
+<p>因为Git是分布式版本控制系统，所以需要填写用户名和邮箱作为一个标识。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;quhui&quot;   // --global:全局配置</span><br><span class="line">git config --global user.email &quot;362848985@qq.com&quot;</span><br></pre></td></tr></table></figure>
+
+<p>注意：git config –global 参数，有了这个参数，表示你这台机器上所有的Git仓库都会使用这个配置，当然你也可以对某个仓库指定的不同的用户名和邮箱。</p>
+<p>这样，我们的Git客户端就下载并安装完成了。</p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><blockquote>
+<p>注意：</p>
+<ul>
+<li><p>工作区的内容会随着分支的切换而改变</p>
+</li>
+<li><p>git 分支与本地工作区以及暂存区修改的文件是以全局管理的（所有分支公用）</p>
+</li>
+<li><p>当在A分支中新建文件后（无论是否添加到暂存区），并且未提交到分支中，此时如果切换到分支B，</p>
+<ul>
+<li>会将新建文件在工作区及暂存区中的状态带到分支B中（即可直接进行add或提交），提交后则新建的文件保存到了B分支</li>
+<li>此时在A分支中新建的文件消失</li>
+</ul>
+</li>
+<li><p>当在A分支中修改aaa文件后（无论是否添加到暂存区），并且未提交到分支中，此时如果切换到分支B，</p>
+<ul>
+<li>如果B分支中存在aaa文件则会将修改后的aaa文件信息（工作区、暂存区）带到B分子中</li>
+<li>如果B分支中不存在aaa文件则会导致分支切换失败</li>
+</ul>
+</li>
+<li><p>在创建新分支时会根据当前所在分支的内容复制创建一个新分支（工作区、暂存区、分支区都会复制）</p>
+</li>
+</ul>
+</blockquote>
+<p>首先要明确下，所有的版本控制系统，只能跟踪文本文件的改动，比如txt文件，网页，所有程序的代码等，Git也不列外，版本控制系统可以告诉你每次的改动，但是图片，视频这些二进制文件，虽能也能由版本控制系统管理，但没法跟踪文件的变化，只能把二进制文件每次改动串起来，也就是知道图片从1kb变成2kb，但是到底改了啥，版本控制也不知道。</p>
+<p><img src="/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/011500266295799.jpg" alt="img"> </p>
+<blockquote>
+<p>删除本地分支  -d 改为 -D </p>
+</blockquote>
+<h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><h3 id="相关命令"><a href="#相关命令" class="headerlink" title="相关命令"></a>相关命令</h3><ul>
+<li>git checkout -b dev  创建dev分支并切换到dev分支</li>
+</ul>
+<ul>
+<li>git branch dev  创建一个叫dev的分支，不切换</li>
+<li>git checkout dev  切换到一个叫dev的分支</li>
+<li>git branch  查看所有分支</li>
+<li>git branch -d issue001  删除issue001分支</li>
+<li>git merge dev  合并分支  <ul>
+<li>如把dev合并到master那么要在master分支上执行合并的命令</li>
+</ul>
+</li>
+</ul>
+<p><strong>合并的冲突问题</strong></p>
+<p>先合并，再手动解决冲突，再添加  再提交</p>
+<h2 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git log   // 查看提交日志</span><br><span class="line">git log –pretty=oneline  // 简化查看提交日志</span><br><span class="line">git reset --hard HEAD^  // 回退至上一个版本</span><br><span class="line">	那么如果要回退到上上个版本只需把HEAD^ 改成 HEAD^^ 以此类推</span><br><span class="line">git reset --hard HEAD~100  // 回退至前100个版本</span><br><span class="line">当回退后，又需要前进到新版本：（此种情况不能通过git log查看但最新的版本号）</span><br><span class="line">git reflog // 查看回退前的版本号(所有分支操作)</span><br><span class="line">git reset --hard 版本号  // 复位到指定版本</span><br></pre></td></tr></table></figure>
+
+<h2 id="撤销更改"><a href="#撤销更改" class="headerlink" title="撤销更改"></a>撤销更改</h2><ul>
+<li>在文件中新添一行数据，还未进行提交。有3种方法撤销更改<ul>
+<li>如果我知道要删掉那些内容的话，直接手动更改去掉那些需要的文件，然后<code>add</code>添加到暂存区，最后<code>commit</code>掉</li>
+<li>我可以按以前的方法直接恢复到上一个版本。使用 <code>git reset --hard HEAD^</code></li>
+<li>先用 <code>git status</code> 查看下当前的状态。可以发现，Git会告诉你，<code>git restore -- 文件名</code>可以丢弃工作区的修改</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>命令 <code>git restore -- readme.txt</code> 意思就是，把readme.txt文件在工作区做的修改全部撤销</p>
+<p>针对第三种方法有两种特殊情况</p>
+<ul>
+<li>文件自动修改后，还没有放到暂存区，使用 撤销修改就回到和版本库一模一样的状态。</li>
+<li>另外一种是文件已经放入暂存区了，接着又作了修改，撤销修改就回到添加暂存区后的状态。<ul>
+<li>如：在文件中添加一行6666，然后git add到暂存区，然后继续在文件中添加一行7777，然后直接执行修改撤销命令则只会撤销添加的一行7777。说明该命令只对修改后未放入暂存区的内容生效。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="文件删除及撤销删除"><a href="#文件删除及撤销删除" class="headerlink" title="文件删除及撤销删除"></a>文件删除及撤销删除</h2><h3 id="文件删除"><a href="#文件删除" class="headerlink" title="文件删除"></a>文件删除</h3><p>直接在文件管理器直接删除文件，然后添加到暂存区，在提交到分支</p>
+<h3 id="文件删除撤销"><a href="#文件删除撤销" class="headerlink" title="文件删除撤销"></a>文件删除撤销</h3><p>只要删除的文件未提交到暂存区中，就可以通过分支中的内容，进行恢复</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git restore -- 文件名  </span><br></pre></td></tr></table></figure>
+
+<p>如果提交到暂存区或分支中则，可以通过版本回退，获取查看所有分支操作进行版本回退</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard HEAD^  // 回退至上一个版本</span><br><span class="line">或者</span><br><span class="line">git reflog  // 查看所有分支操作</span><br><span class="line">git reset --hard 版本号  // 复位到指定版本</span><br></pre></td></tr></table></figure>
+
+<h2 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h2><h3 id="创建远程仓库"><a href="#创建远程仓库" class="headerlink" title="创建远程仓库"></a>创建远程仓库</h3><ul>
+<li>需要一个网路上存放代码的仓库，此处以gitee为例<ul>
+<li>注册gitee账号，新建一个仓库（不要选初始化仓库，设置模板，选择分支模型：防止新建的仓库中存在默认文件后与本地仓库冲突）</li>
+</ul>
+</li>
+</ul>
+<h3 id="SSH密匙"><a href="#SSH密匙" class="headerlink" title="SSH密匙"></a>SSH密匙</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;15002821218@163.com&quot; // 本地生成SSH密匙，邮箱使用注册时的邮箱</span><br></pre></td></tr></table></figure>
+
+<p><img src="/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20220712085750966.png" alt="image-20220712085750966"> </p>
+<p>找到指定文件打开并复制内容，将密匙设置到对应的远程仓库</p>
+<h3 id="在本地仓库中链接远程仓库"><a href="#在本地仓库中链接远程仓库" class="headerlink" title="在本地仓库中链接远程仓库"></a>在本地仓库中链接远程仓库</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">语法：</span><br><span class="line">git remote add 远程创库名 远程仓库地址</span><br><span class="line">示例：</span><br><span class="line">git remote add origin https://gitee.com/quhuiyyds/gie_test.git</span><br></pre></td></tr></table></figure>
+
+<p>创建成功后</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git remote  // 查看所有的远程仓库</span><br><span class="line">git remote -v  // 查看远程仓库地址</span><br><span class="line">origin  https://gitee.com/quhuiyyds/gie_test.githttps://gitee.com/quhuiyyds/gie_test.git (fetch) // 下载地址</span><br><span class="line">origin  https://gitee.com/quhuiyyds/gie_test.githttps://gitee.com/quhuiyyds/gie_test.git (push)  // 上传地址</span><br><span class="line">// 修改地址</span><br><span class="line">git remote set-url --push origin https://gitee.com/SillyCuckoo/code-repository.git // 修改上传地址</span><br><span class="line">git remote set-url origin &lt;remote-url&gt;  // 修改下载地址</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="拉取远程仓库的代码"><a href="#拉取远程仓库的代码" class="headerlink" title="拉取远程仓库的代码"></a>拉取远程仓库的代码</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/gafish/gafish.github.com.git  // 克隆命令 下载项目</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：</p>
+<ul>
+<li>密码只会在第一次建立链接时输入如果输入错误则需要在设置中更改（win：控制面板\用户帐户\凭据管理器）</li>
+<li>本应该每次上传都需要密码但是，win系统帮我们管理了。所以只需要一次</li>
+</ul>
+</blockquote>
+<h3 id="git-pull"><a href="#git-pull" class="headerlink" title="git pull"></a>git pull</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull  // 取回远程主机某个分支的更新，再与本地的指定分支合并</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li>git pull 还存在验证的功能：执行此命令后会检查上次执行git pull拉取命令时获得的数据与现在执行拉取命令时远程仓库中数据是否有变化<ul>
+<li>Already up to date.  ：表示<strong>此次拉取</strong>与<strong>上次拉取远程仓库中（不包括工作区及暂存区）的内容一致</strong></li>
+<li>CONFLICT (content): Merge conflict in aaa.txt ：自动合并冲突，表示上次拉取的内容在本地仓库被修改，同时此次拉取与上次拉取远程仓库中的内容也被更改过。</li>
+<li>Merge branch ‘master’ of <a target="_blank" rel="noopener" href="https://gitee.com/quhuiyyds/gie_test">https://gitee.com/quhuiyyds/gie_test</a> ：出现这样表示此次拉取与上次拉取远程仓库中数据不一致，但是没有对同一行进行更改，直接输入 ：wq 执行合并命令。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3 id="将本地仓库上传至远程仓库"><a href="#将本地仓库上传至远程仓库" class="headerlink" title="将本地仓库上传至远程仓库"></a>将本地仓库上传至远程仓库</h3><blockquote>
+<h4 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h4><p>在上传前一定要使用git pull 进行一次验证</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin &quot;master&quot;  // 将所在分支上传到指定远程仓库的master分支（本地仓库分支与上传到的分支名对应）</span><br></pre></td></tr></table></figure>
+
+<p>此命令首次执行时需要输入远程仓库的账号密码</p>
+<h1 id="在IDEA中使用"><a href="#在IDEA中使用" class="headerlink" title="在IDEA中使用"></a>在IDEA中使用</h1><h2 id="IDEA配置"><a href="#IDEA配置" class="headerlink" title="IDEA配置"></a>IDEA配置</h2><img src="git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20220712084255964.png" alt="image-20220712084255964" style="zoom:80%;" /> 
+
+<h3 id="密码或公匙配置"><a href="#密码或公匙配置" class="headerlink" title="密码或公匙配置"></a>密码或公匙配置</h3><p>查看上章内容</p>
+<h3 id="在IDEA中创建本地仓库"><a href="#在IDEA中创建本地仓库" class="headerlink" title="在IDEA中创建本地仓库"></a>在IDEA中创建本地仓库</h3><p><img src="/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image001.png" alt="img"> </p>
+<h3 id="忽略文件"><a href="#忽略文件" class="headerlink" title="忽略文件"></a>忽略文件</h3><p>在开发中，往往会产生很多编译后运执行文件，或者缓存文件也可能有本地的配置文件。如果不进行处理，每次git在同步文件，就会一直提示要进行提交。循环冲突。基于这样的情况，git软件提供一个名字.gitignore，这个文件表示需要忽略的文件，在git本地仓库中，git不进行管理的问题。</p>
+<p><img src="/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image001-16575878704771.png" alt="img"> </p>
+<p><img src="/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image002.png" alt="img"> </p>
+<blockquote>
+<p>注意：</p>
+<ul>
+<li>添加到忽略文件，git忽略对文件管理</li>
+</ul>
+</blockquote>
+<h2 id="提交项目到本地仓库"><a href="#提交项目到本地仓库" class="headerlink" title="提交项目到本地仓库"></a>提交项目到本地仓库</h2><ul>
+<li><p>在项目主目录上右击，点Git–&gt;Add ： 添加到暂存区</p>
+</li>
+<li><p>在项目主目录上右击，点Git–&gt;Commit Directory ： 提交到本地仓库</p>
+<p><img src="/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image002-16575880768102.jpg" alt="img"></p>
+</li>
+</ul>
+<p><img src="/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image001-16575880858923.png" alt="img"> </p>
+<h2 id="提交项目到远程仓库"><a href="#提交项目到远程仓库" class="headerlink" title="提交项目到远程仓库"></a>提交项目到远程仓库</h2><img src="git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image002-16575881253794.jpg" alt="img" style="zoom:80%;" /> 
+
+<img src="git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image002-16575881507305.jpg" alt="img" style="zoom:80%;" /> 
+
+<h2 id="使用IDEA拉取项目"><a href="#使用IDEA拉取项目" class="headerlink" title="使用IDEA拉取项目"></a>使用IDEA拉取项目</h2><img src="git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20220712091132705.png" alt="image-20220712091132705" style="zoom:80%;" /> 
+
+<h3 id="设置项目拉取地址"><a href="#设置项目拉取地址" class="headerlink" title="设置项目拉取地址"></a>设置项目拉取地址</h3><p><img src="/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image002-16575883306796.jpg" alt="img"> </p>
+<h2 id="查看不同及还原"><a href="#查看不同及还原" class="headerlink" title="查看不同及还原"></a>查看不同及还原</h2><img src="git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image002-16575883762617.jpg" alt="img" style="zoom:80%;" /> 
+
+<img src="git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image001-16575883871228.png" alt="img" style="zoom:80%;" /> 
+
+<h2 id="创建分支"><a href="#创建分支" class="headerlink" title="创建分支"></a>创建分支</h2><h3 id="当前分支"><a href="#当前分支" class="headerlink" title="当前分支"></a>当前分支</h3><p><img src="/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image001-16575884289659.png" alt="img"> </p>
+<h3 id="创建dev分支"><a href="#创建dev分支" class="headerlink" title="创建dev分支"></a>创建dev分支</h3><p><img src="/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image002-165758842896510.png" alt="img"> </p>
+<p><img src="/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image003.png" alt="img"> </p>
+<h2 id="1-2-切换分支"><a href="#1-2-切换分支" class="headerlink" title="1.2 切换分支"></a>1.2 切换分支</h2><p><img src="/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image004.png" alt="img"> </p>
+<h2 id="1-3-合并分支"><a href="#1-3-合并分支" class="headerlink" title="1.3 合并分支"></a>1.3 合并分支</h2><img src="git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image006.jpg" alt="img" style="zoom:80%;" /> 
+
+<img src="git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image008.jpg" alt="img" style="zoom:80%;" /> 
+
+ 
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">流光</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/post/21db94ec.html">http://example.com/post/21db94ec.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">流光</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/">版本管理</a></div><div class="post_share"><div class="social-share" data-image="https://th.wallhaven.cc/lg/e7/e7jj6r.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/post/5a3fc010.html"><img class="next-cover" src="https://th.wallhaven.cc/small/pk/pkgkkp.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Docker-应用容器引擎</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">流光</div><div class="author-info__description">大爷要常来呀！</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/quhuiya" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:362848985@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#git%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">git介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Git%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">Git工作流程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">3.</span> <span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Git%E7%9A%84%E5%AE%89%E8%A3%85"><span class="toc-number">3.1.</span> <span class="toc-text">Git的安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B"><span class="toc-number">3.2.</span> <span class="toc-text">Git客户端安装过程</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-number">4.</span> <span class="toc-text">使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%94%AF"><span class="toc-number">4.1.</span> <span class="toc-text">分支</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="toc-number">4.1.1.</span> <span class="toc-text">相关命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%88%E6%9C%AC%E5%9B%9E%E9%80%80"><span class="toc-number">4.2.</span> <span class="toc-text">版本回退</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%92%A4%E9%94%80%E6%9B%B4%E6%94%B9"><span class="toc-number">4.3.</span> <span class="toc-text">撤销更改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4%E5%8F%8A%E6%92%A4%E9%94%80%E5%88%A0%E9%99%A4"><span class="toc-number">4.4.</span> <span class="toc-text">文件删除及撤销删除</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4"><span class="toc-number">4.4.1.</span> <span class="toc-text">文件删除</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4%E6%92%A4%E9%94%80"><span class="toc-number">4.4.2.</span> <span class="toc-text">文件删除撤销</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="toc-number">4.5.</span> <span class="toc-text">远程仓库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="toc-number">4.5.1.</span> <span class="toc-text">创建远程仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SSH%E5%AF%86%E5%8C%99"><span class="toc-number">4.5.2.</span> <span class="toc-text">SSH密匙</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E4%B8%AD%E9%93%BE%E6%8E%A5%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="toc-number">4.5.3.</span> <span class="toc-text">在本地仓库中链接远程仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%89%E5%8F%96%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E7%9A%84%E4%BB%A3%E7%A0%81"><span class="toc-number">4.5.4.</span> <span class="toc-text">拉取远程仓库的代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#git-pull"><span class="toc-number">4.5.5.</span> <span class="toc-text">git pull</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%86%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E4%B8%8A%E4%BC%A0%E8%87%B3%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="toc-number">4.5.6.</span> <span class="toc-text">将本地仓库上传至远程仓库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%EF%BC%9A"><span class="toc-number">4.5.6.1.</span> <span class="toc-text">注意：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9C%A8IDEA%E4%B8%AD%E4%BD%BF%E7%94%A8"><span class="toc-number">5.</span> <span class="toc-text">在IDEA中使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#IDEA%E9%85%8D%E7%BD%AE"><span class="toc-number">5.1.</span> <span class="toc-text">IDEA配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%86%E7%A0%81%E6%88%96%E5%85%AC%E5%8C%99%E9%85%8D%E7%BD%AE"><span class="toc-number">5.1.1.</span> <span class="toc-text">密码或公匙配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8IDEA%E4%B8%AD%E5%88%9B%E5%BB%BA%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93"><span class="toc-number">5.1.2.</span> <span class="toc-text">在IDEA中创建本地仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%BD%E7%95%A5%E6%96%87%E4%BB%B6"><span class="toc-number">5.1.3.</span> <span class="toc-text">忽略文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%90%E4%BA%A4%E9%A1%B9%E7%9B%AE%E5%88%B0%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93"><span class="toc-number">5.2.</span> <span class="toc-text">提交项目到本地仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%90%E4%BA%A4%E9%A1%B9%E7%9B%AE%E5%88%B0%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="toc-number">5.3.</span> <span class="toc-text">提交项目到远程仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8IDEA%E6%8B%89%E5%8F%96%E9%A1%B9%E7%9B%AE"><span class="toc-number">5.4.</span> <span class="toc-text">使用IDEA拉取项目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E9%A1%B9%E7%9B%AE%E6%8B%89%E5%8F%96%E5%9C%B0%E5%9D%80"><span class="toc-number">5.4.1.</span> <span class="toc-text">设置项目拉取地址</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E4%B8%8D%E5%90%8C%E5%8F%8A%E8%BF%98%E5%8E%9F"><span class="toc-number">5.5.</span> <span class="toc-text">查看不同及还原</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%88%86%E6%94%AF"><span class="toc-number">5.6.</span> <span class="toc-text">创建分支</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BD%93%E5%89%8D%E5%88%86%E6%94%AF"><span class="toc-number">5.6.1.</span> <span class="toc-text">当前分支</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BAdev%E5%88%86%E6%94%AF"><span class="toc-number">5.6.2.</span> <span class="toc-text">创建dev分支</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E5%88%87%E6%8D%A2%E5%88%86%E6%94%AF"><span class="toc-number">5.7.</span> <span class="toc-text">1.2 切换分支</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E5%90%88%E5%B9%B6%E5%88%86%E6%94%AF"><span class="toc-number">5.8.</span> <span class="toc-text">1.3 合并分支</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/21db94ec.html" title="git学习笔记"><img src="https://th.wallhaven.cc/lg/e7/e7jj6r.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="git学习笔记"/></a><div class="content"><a class="title" href="/post/21db94ec.html" title="git学习笔记">git学习笔记</a><time datetime="2022-09-03T09:03:04.000Z" title="发表于 2022-09-03 17:03:04">2022-09-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/5a3fc010.html" title="Docker-应用容器引擎"><img src="https://th.wallhaven.cc/small/pk/pkgkkp.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Docker-应用容器引擎"/></a><div class="content"><a class="title" href="/post/5a3fc010.html" title="Docker-应用容器引擎">Docker-应用容器引擎</a><time datetime="2022-06-21T12:28:50.000Z" title="发表于 2022-06-21 20:28:50">2022-06-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/4c19db0b.html" title="非关系型数据库-Redis的安装使用"><img src="https://th.wallhaven.cc/lg/y8/y86g17.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="非关系型数据库-Redis的安装使用"/></a><div class="content"><a class="title" href="/post/4c19db0b.html" title="非关系型数据库-Redis的安装使用">非关系型数据库-Redis的安装使用</a><time datetime="2022-06-18T10:32:48.000Z" title="发表于 2022-06-18 18:32:48">2022-06-18</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://th.wallhaven.cc/lg/e7/e7jj6r.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2022 By 流光</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">欢迎大家访问我的博客</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'lIhEclacke2nrQDO3uL8tDcc-gzGzoHsz',
+      appKey: '5kavH0BX6jJnUjser4SX06h9',
+      avatar: 'monsterid',
+      serverURLs: 'https://liheclac.lc-cn-n1-shared.com',
+      emojiMaps: {"tv-白眼":"https://i0.hdslb.com/bfs/emote/c1d59f439e379ee50eef488bcb5e5378e5044ea4.png","tv-doge":"https://i0.hdslb.com/bfs/emote/6ea59c827c414b4a2955fe79e0f6fd3dcd515e24.png","tv-坏笑":"https://i0.hdslb.com/bfs/emote/1f0b87f731a671079842116e0991c91c2c88645a.png","tv-难过":"https://i0.hdslb.com/bfs/emote/87f46748d3f142ebc6586ff58860d0e2fc8263ba.png","tv-生气":"https://i0.hdslb.com/bfs/emote/26702dcafdab5e8225b43ffd23c94ac1ff932654.png","tv-委屈":"https://i0.hdslb.com/bfs/emote/d04dba7b5465779e9755d2ab6f0a897b9b33bb77.png","tv-斜眼笑":"https://i0.hdslb.com/bfs/emote/911f987aa8bc1bee12d52aafe62bc41ef4474e6c.png","tv-呆":"https://i0.hdslb.com/bfs/emote/fe1179ebaa191569b0d31cecafe7a2cd1c951c9d.png","tv-发怒":"https://i0.hdslb.com/bfs/emote/34ba3cd204d5b05fec70ce08fa9fa0dd612409ff.png","tv-惊吓":"https://i0.hdslb.com/bfs/emote/0d15c7e2ee58e935adc6a7193ee042388adc22af.png","tv-呕吐":"https://i0.hdslb.com/bfs/emote/9f996894a39e282ccf5e66856af49483f81870f3.png","tv-思考":"https://i0.hdslb.com/bfs/emote/90cf159733e558137ed20aa04d09964436f618a1.png","tv-微笑":"https://i0.hdslb.com/bfs/emote/70dc5c7b56f93eb61bddba11e28fb1d18fddcd4c.png","tv-疑问":"https://i0.hdslb.com/bfs/emote/0793d949b18d7be716078349c202c15ff166f314.png","tv-大哭":"https://i0.hdslb.com/bfs/emote/23269aeb35f99daee28dda129676f6e9ea87934f.png","tv-鼓掌":"https://i0.hdslb.com/bfs/emote/1d21793f96ef4e6f48b23e53e3b9e42da833a0f6.png","tv-抠鼻":"https://i0.hdslb.com/bfs/emote/c666f55e88d471e51bbd9fab9bb308110824a6eb.png","tv-亲亲":"https://i0.hdslb.com/bfs/emote/a8111ad55953ef5e3be3327ef94eb4a39d535d06.png","tv-调皮":"https://i0.hdslb.com/bfs/emote/b9c41de8e82dd7a8515ae5e3cb63e898bf245186.png","tv-笑哭":"https://i0.hdslb.com/bfs/emote/1abc628f6d4f4caf9d0e7800878f4697abbc8273.png","tv-晕":"https://i0.hdslb.com/bfs/emote/5443c22b4d07fb1907ccc610c8e6db254f2461b7.png","tv-点赞":"https://i0.hdslb.com/bfs/emote/f85c354995bd99e28fc76c869bfe42ba6438eff4.png","tv-害羞":"https://i0.hdslb.com/bfs/emote/a37683fb5642fa3ddfc7f4e5525fd13e42a2bdb1.png","tv-睡着":"https://i0.hdslb.com/bfs/emote/8b196675b53af58264f383c50ad0945048290b33.png","tv-色":"https://i0.hdslb.com/bfs/emote/61822c7e9aae5da76475e7892534545336b23a6f.png","tv-吐血":"https://i0.hdslb.com/bfs/emote/09dd16a7aa59b77baa1155d47484409624470c77.png","tv-无奈":"https://i0.hdslb.com/bfs/emote/ea8ed89ee9878f2fece2dda0ea8a5dbfe21b5751.png","tv-再见":"https://i0.hdslb.com/bfs/emote/180129b8ea851044ce71caf55cc8ce44bd4a4fc8.png","tv-流汗":"https://i0.hdslb.com/bfs/emote/cead1c351ab8d79e9f369605beb90148db0fbed3.png","tv-偷笑":"https://i0.hdslb.com/bfs/emote/bb690d4107620f1c15cff29509db529a73aee261.png","tv-抓狂":"https://i0.hdslb.com/bfs/emote/fe31c08edad661d63762b04e17b8d5ae3c71a757.png","tv-黑人问号":"https://i0.hdslb.com/bfs/emote/45821a01f51bc867da9edbaa2e070410819a95b2.png","tv-困":"https://i0.hdslb.com/bfs/emote/241ee304e44c0af029adceb294399391e4737ef2.png","tv-打脸":"https://i0.hdslb.com/bfs/emote/56ab10b624063e966bfcb76ea5dc4794d87dfd47.png","tv-闭嘴":"https://i0.hdslb.com/bfs/emote/c9e990da7f6e93975e25fd8b70e2e290aa4086ef.png","tv-鄙视":"https://i0.hdslb.com/bfs/emote/6e72339f346a692a495b123174b49e4e8e781303.png","tv-腼腆":"https://i0.hdslb.com/bfs/emote/89712c0d4af73e67f89e35cbc518420380a7f6f4.png","tv-馋":"https://i0.hdslb.com/bfs/emote/fc7e829b845c43c623c8b490ee3602b7f0e76a31.png","tv-可爱":"https://i0.hdslb.com/bfs/emote/9e55fd9b500ac4b96613539f1ce2f9499e314ed9.png","tv-发财":"https://i0.hdslb.com/bfs/emote/34db290afd2963723c6eb3c4560667db7253a21a.png","tv-生病":"https://i0.hdslb.com/bfs/emote/8b0ec90e6b86771092a498c54f09fc94621c1900.png","tv-流鼻血":"https://i0.hdslb.com/bfs/emote/c32d39db2737f89b904ca32700d140a9241b0767.png","tv-尴尬":"https://i0.hdslb.com/bfs/emote/7cfa62dafc59798a3d3fb262d421eeeff166cfa4.png","tv-大佬":"https://i0.hdslb.com/bfs/emote/093c1e2c490161aca397afc45573c877cdead616.png","tv-流泪":"https://i0.hdslb.com/bfs/emote/7e71cde7858f0cd50d74b0264aa26db612a8a167.png","tv-冷漠":"https://i0.hdslb.com/bfs/emote/b9cbc755c2b3ee43be07ca13de84e5b699a3f101.png","tv-皱眉":"https://i0.hdslb.com/bfs/emote/72ccad6679fea0d14cce648b4d818e09b8ffea2d.png","tv-鬼脸":"https://i0.hdslb.com/bfs/emote/0ffbbddf8a94d124ca2f54b360bbc04feb6bbfea.png","tv-调侃":"https://i0.hdslb.com/bfs/emote/4bc022533ef31544ca0d72c12c808cf4a1cce3e3.png","tv-目瞪口呆":"https://i0.hdslb.com/bfs/emote/0b8cb81a68de5d5365212c99375e7ace3e7891b7.png","小电视-无语":"https://i0.hdslb.com/bfs/emote/fbd12affebfdaadd3d721bffdb685a6b1ee71219.png","2233娘-大笑":"https://i0.hdslb.com/bfs/emote/16b8794be990cefa6caeba4d901b934a227ee3b8.png","2233娘-吃惊":"https://i0.hdslb.com/bfs/emote/d1628c43d35b1530c0504a643ff80b6189fa0a43.png","2233娘-大哭":"https://i0.hdslb.com/bfs/emote/476a2a60f6e337b8c0697a592e0aa82781f6b33b.png","2233娘-耶":"https://i0.hdslb.com/bfs/emote/d7178e258a0efc969b65ccc2b1322fb235f5dff4.png","2233娘-卖萌":"https://i0.hdslb.com/bfs/emote/ea893aa25355de95ab4f03c2dad3f0c58d0c159e.png","2233娘-疑问":"https://i0.hdslb.com/bfs/emote/0b41f509351958dbb63d472fec0132d1bd03bd14.png","2233娘-汗":"https://i0.hdslb.com/bfs/emote/247cd9df8cdf84b18368c21e3b2dd374e84c0927.png","2233娘-困惑":"https://i0.hdslb.com/bfs/emote/714eeb4eae0d0933b4ff08b7df788b1982f6b940.png","2233娘-怒":"https://i0.hdslb.com/bfs/emote/f31953119c51b9748016440ac0b632f779929b37.png","2233娘-委屈":"https://i0.hdslb.com/bfs/emote/d9d0bf9d358af8d5761093ec66d4e3f60d963a63.png","2233娘-郁闷":"https://i0.hdslb.com/bfs/emote/485203fe7100f2c8fc40b2800a18fe20b35f2f1a.png","2233娘-第一":"https://i0.hdslb.com/bfs/emote/3754ee6e5985bd0bd7dfb668981f2a8733398ebd.png","2233娘-喝水":"https://i0.hdslb.com/bfs/emote/695bf5429472049b52c1e0de586f8a2511195a23.png","2233娘-吐魂":"https://i0.hdslb.com/bfs/emote/e999af499edf38a91ca68b1a9d2f97042c1d6734.png","2233娘-无言":"https://i0.hdslb.com/bfs/emote/fdb5870f32cfaf7949e0f88a13f6feba4a48b719.png","蛆音娘-卖萌":"https://i0.hdslb.com/bfs/emote/4cd1024d0c2ecee93224477946656d32c1705ccf.png","蛆音娘-吃瓜群众":"https://i0.hdslb.com/bfs/emote/5d0d6cc54b508d30b4f50b6b5f7b7e1e259d84ea.png","蛆音娘-吃惊":"https://i0.hdslb.com/bfs/emote/7a4cb0b644214d476ce198ddf6a7a0aa31311199.png","蛆音娘-害怕":"https://i0.hdslb.com/bfs/emote/7407634bf67bfe9d7806f15d57608a1b18c2b4c2.png","蛆音娘-扶额":"https://i0.hdslb.com/bfs/emote/a4d8f95baaa24821fd591a7dbeee1b869e760f59.png","蛆音娘-滑稽":"https://i0.hdslb.com/bfs/emote/d3717f10ffe9787336bc39a09214270988521a67.png","蛆音娘-哼":"https://i0.hdslb.com/bfs/emote/8854f1b8a82126e3b87f3a1563da5feb55b23e71.png","蛆音娘-机智":"https://i0.hdslb.com/bfs/emote/e543c0a823ca915df9362283f4ae950e9e9cc2e9.png","蛆音娘-哭泣":"https://i0.hdslb.com/bfs/emote/a23055546c19eba663b16370b8e072394d87ff53.png","蛆音娘-睡觉觉":"https://i0.hdslb.com/bfs/emote/40ef7e6d931acb37e5514b70d13663e86dc3698b.png","蛆音娘-生气":"https://i0.hdslb.com/bfs/emote/bf398cbbcfaae107d1b59aaf03895f38422e3d87.png","蛆音娘-偷看":"https://i0.hdslb.com/bfs/emote/52463ded4f23649db10ba3ced662ed946c5edf0b.png","蛆音娘-吐血":"https://i0.hdslb.com/bfs/emote/5772d22015e5b2b40a9fe302b5967ec7282ac848.png","蛆音娘-无语":"https://i0.hdslb.com/bfs/emote/b6c763c6484ce2e48299ceb21861e46318868871.png","蛆音娘-摇头":"https://i0.hdslb.com/bfs/emote/b7278f750c6f2235f41f37056d727f25d3bf781f.png","蛆音娘-疑问":"https://i0.hdslb.com/bfs/emote/7750b698d15a1b8e83c0f59106e8e9cd5cb57897.png","蛆音娘-die":"https://i0.hdslb.com/bfs/emote/52543025a070fde5c01a10320c9636ec3173ac99.png","蛆音娘-OK":"https://i0.hdslb.com/bfs/emote/52a0dcee66c91bf123bf53bd48a269b1317d17f9.png","蛆音娘-肥皂":"https://i0.hdslb.com/bfs/emote/7f1a857e9430dcf3050ce0ef5fa19aefebea6dc4.png","蛆音娘-大笑":"https://i0.hdslb.com/bfs/emote/1d3355fb89c24ab3c50e5c152d8b990a290dc63e.png","洛天依-傲娇":"https://i0.hdslb.com/bfs/emote/5d7c8307af10540909fce6121066249df3935a24.png","洛天依-吃包群众":"https://i0.hdslb.com/bfs/emote/f8cdabfc1b81fd25b85b8457ee49a20a4fc5d91b.png","洛天依-吃药":"https://i0.hdslb.com/bfs/emote/883e6654176ebcecafd3e52efa8ee842357e18a0.png","洛天依-滑稽":"https://i0.hdslb.com/bfs/emote/692cef7ca51f935aaa499de7e4d6048c53f42324.png","洛天依-哈哈哈":"https://i0.hdslb.com/bfs/emote/677c2f5555c1e79fc336a6283fdbbdc7ea88fec4.png","洛天依-看透一切":"https://i0.hdslb.com/bfs/emote/4fac414b5002c3739b1ae24f2fc27b5f150ade24.png","洛天依-打call":"https://i0.hdslb.com/bfs/emote/2ab983b2519dc241666254de8e5352fbeedc96bb.png","洛天依-前排":"https://i0.hdslb.com/bfs/emote/fbbc45e7aee2f256f691df539db0cfcc35b3be7d.png","洛天依-去吧":"https://i0.hdslb.com/bfs/emote/0edeeb0d10d44302854e636c47f5dc3aa96a9206.png","洛天依-冷漠":"https://i0.hdslb.com/bfs/emote/5f4385db3c9806b08ea15bd9ff444af9d9fe0c3a.png","洛天依-可以":"https://i0.hdslb.com/bfs/emote/967377b83e37a0d5dd13bc0f4e4323abf10e4cbf.png","洛天依-掀桌":"https://i0.hdslb.com/bfs/emote/803129b7a1143faabc63c2648335b7d506229e7a.png","洛天依-消灭你":"https://i0.hdslb.com/bfs/emote/d96dccf8fa248ee34c7e4aba94e813bec28d2dd8.png","洛天依-阴阳先生":"https://i0.hdslb.com/bfs/emote/65e195a8ac54bb678dd1c1e6ce6c5d4ba02761b3.png","洛天依-无言以对":"https://i0.hdslb.com/bfs/emote/9cfd368b370acd40c1b8f933cec3fb24883356a5.png","洛天依-？？？":"https://i0.hdslb.com/bfs/emote/f5f1ebe50c26d5f6d4e17cb983bd5ae59f103dda.png","洛天依-爱你哦":"https://i0.hdslb.com/bfs/emote/7102c9e25359af8348489ff8529b3bb2c5bd05d0.png","泠鸢yousa-awsl":"https://i0.hdslb.com/bfs/emote/7663b729161bd4556c2ec318c07791000743eb56.png","泠鸢yousa-打call":"https://i0.hdslb.com/bfs/emote/718e9495846db4172eb87d2f7f02015a34d35ea2.png","泠鸢yousa-沉默":"https://i0.hdslb.com/bfs/emote/5e967cf1669743ed92e9a8ff3e5de6d90ca63d3d.png","泠鸢yousa-大哭":"https://i0.hdslb.com/bfs/emote/3f757b147b9b1e201470eae7dac9cc0360172569.png","泠鸢yousa-干杯":"https://i0.hdslb.com/bfs/emote/5cf5e14101be845233a222ab1bbdc21c63af04c3.png","泠鸢yousa-好人卡":"https://i0.hdslb.com/bfs/emote/e3907b3bb20b18e7ecb11cd86829c9a4ce5b1b2f.png","泠鸢yousa-加大力度":"https://i0.hdslb.com/bfs/emote/a0393a2d4b522f07a319dfd2e91754a3cdff2c48.png","泠鸢yousa-滑稽":"https://i0.hdslb.com/bfs/emote/a8057c0e0579b93c16010a270e261fd0a64034af.png","泠鸢yousa-请吃桃":"https://i0.hdslb.com/bfs/emote/e92276d9d8c28f85f7dbcc0fbbb6ecb3345ce33e.png","泠鸢yousa-惊讶":"https://i0.hdslb.com/bfs/emote/9fdc2c5b4b970aded56fe2f326bd4d00e849339d.png","泠鸢yousa-生气":"https://i0.hdslb.com/bfs/emote/9e6ba9ff34101e04d3e321cad486f845f892050e.png","泠鸢yousa-贴贴":"https://i0.hdslb.com/bfs/emote/dbc177d314231add509501ffc6bc7655fca2c10f.png","泠鸢yousa-头晕":"https://i0.hdslb.com/bfs/emote/49830c1c8a1652f7ee9cb854ac7dbf8e378cdcd6.png","泠鸢yousa-问号":"https://i0.hdslb.com/bfs/emote/ab7a543233eff83138c3221c86a762ab36bab7bc.png","泠鸢yousa-真棒":"https://i0.hdslb.com/bfs/emote/02ea49543a3ac52feee185c156ab08fb2bfdd89e.png"},
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
